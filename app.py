@@ -5,6 +5,9 @@ import os
 
 app = Flask(__name__)
 
+# TRUQUE PARA O VERCEL ACHAR AS IMAGENS ABSOLUTAS
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
 # Configuração Avançada do PDF Profissional
 class ComprovanteProfissional(FPDF):
     def header(self):
@@ -13,8 +16,8 @@ class ComprovanteProfissional(FPDF):
         self.set_line_width(0.5)
         self.rect(8.0, 8.0, 194.0, 281.0)
         
-        # 2. Logo da Instituição (Canto Esquerdo)
-        logo_path = os.path.join('static', 'img', 'logo_instituicao.png')
+        # 2. Logo da Instituição (Usando BASE_DIR para o Vercel)
+        logo_path = os.path.join(BASE_DIR, 'static', 'img', 'logo_instituicao.png')
         if os.path.exists(logo_path):
             self.image(logo_path, x=15, y=14, w=35)
 
@@ -46,7 +49,6 @@ class ComprovanteProfissional(FPDF):
         # Rodapé com rastreabilidade
         self.set_y(-25)
         self.set_draw_color(200, 200, 200)
-        # CORREÇÃO AQUI: Use 'self' em vez de 'pdf'
         self.line(15, self.get_y(), 195, self.get_y())
         self.set_font('helvetica', 'I', 8)
         self.set_text_color(100, 100, 100)
@@ -98,6 +100,7 @@ def gerar():
     pdf.set_font('helvetica', 'B', 11)
     tipo_str = 'UNIVERSITÁRIO' if tipo == 'universidade' else 'CURSO TÉCNICO'
     pdf.cell(0, 8, f' {tipo_str}', border='B', new_x='LMARGIN', new_y='NEXT')
+    
     # Campos Condicionais (com layout alinhado)
     if tipo == 'escola':
         escolaridade = request.form.get('escolaridade', '').upper()
@@ -134,23 +137,24 @@ def gerar():
     # O parâmetro fill=True preenche o fundo da célula com a cor acima
     pdf.cell(0, 12, ' MATRÍCULA REGULAR E ATIVA ', align='C', fill=True, new_x='LMARGIN', new_y='NEXT')
 
-    # --- O CARIMBO REALISTA (Posição Absoluta) ---
-    carimbo_path = os.path.join('static', 'img', 'carimbo_oficial.png')
+    # --- O CARIMBO REALISTA (Posição Absoluta com BASE_DIR) ---
+    carimbo_path = os.path.join(BASE_DIR, 'static', 'img', 'carimbo_oficial.png')
     
     if os.path.exists(carimbo_path):
-        # x=67.5 centraliza uma imagem de w=75. 
-        # y=200 trava a altura do carimbo perto do rodapé, para nunca ser cortado.
         pdf.image(carimbo_path, x=67.5, y=200, w=75)
     else:
         pdf.ln(20)
         pdf.set_text_color(200, 0, 0)
         pdf.cell(0, 10, '[ERRO: IMAGEM DO CARIMBO NÃO ENCONTRADA]', align='C')
 
-    # Salvando e enviando
-    pdf_path = f"comprovante_{nome.replace(' ', '_')}.pdf"
+    # --- O PULO DO GATO PRO VERCEL: SALVAR EM /tmp ---
+    nome_arquivo = f"comprovante_{nome.replace(' ', '_')}.pdf"
+    pdf_path = os.path.join('/tmp', nome_arquivo) # Única pasta com permissão de escrita
+    
     pdf.output(pdf_path)
     
-    return send_file(pdf_path, as_attachment=True)
+    # download_name garante que o nome do arquivo venha certo para o usuário
+    return send_file(pdf_path, as_attachment=True, download_name=nome_arquivo)
 
 if __name__ == '__main__':
     app.run(debug=True)
