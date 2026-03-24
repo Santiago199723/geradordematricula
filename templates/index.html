@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PMI - Portal de Matrícula Inteligente</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    <div class="video-background">
+        </div>
+
+    <div class="main-container">
+        <header>
+            <div class="logo-space">PMI</div>
+            <h1>Gerador de Comprovante Oficial</h1>
+            <p>Engenharia da Computação - Módulo de Autenticação</p>
+        </header>
+        
+        <form action="/gerar" method="POST" class="dark-form">
+            
+            <div class="input-group">
+                <label>Nome Completo do Acadêmico</label>
+                <input type="text" name="nome" required placeholder="Ex: João Silva">
+            </div>
+
+            <div class="input-group">
+                <label>Nome da Instituição de Ensino</label>
+                <input type="text" name="instituicao" required value="SEG - Cursos Técnicos" style="color: var(--accent-blue); font-weight: bold;">
+            </div>
+
+            <div class="input-row">
+                <div class="input-group half">
+                    <label>Tipo de Vínculo</label>
+                    <select name="tipo" id="tipoSelect" required onchange="toggleFields()">
+                        <option value="escola" selected>Curso (Técnico/Livre)</option>
+                        <option value="universidade">Universidade (Graduação)</option>
+                    </select>
+                </div>
+
+                <div id="camposEscola" class="half-group">
+                    <div class="input-group">
+                        <label>Escolaridade / Nível</label>
+                        <select name="escolaridade">
+                            <option value="Técnico" selected>Técnico</option>
+                            <option value="Ensino Fundamental">Ensino Fundamental</option>
+                            <option value="Ensino Médio">Ensino Médio</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="camposUniversidade" class="hidden universidad-row">
+                    <div class="input-group half">
+                        <label>Curso</label>
+                        <input type="text" name="curso" placeholder="Ex: Eng. Computação">
+                    </div>
+                    <div class="input-group half">
+                        <label>Período</label>
+                        <input type="text" name="periodo" placeholder="Ex: 5º Semestre">
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-gerar">
+                <span class="btn-text">GERAR COMPROVANTE (PDF)</span>
+                <span class="btn-glow"></span>
+            </button>
+        </form>
+    </div>
+
+    <script>
+        function toggleFields() {
+            const tipo = document.getElementById('tipoSelect').value;
+            const camposEscola = document.getElementById('camposEscola');
+            const camposUni = document.getElementById('camposUniversidade');
+
+            // Reseta
+            camposEscola.classList.add('hidden');
+            camposUni.classList.add('hidden');
+
+            if (tipo === 'escola') {
+                camposEscola.classList.remove('hidden');
+            } else if (tipo === 'universidade') {
+                camposUni.classList.remove('hidden');
+            }
+        }
+    </script>
+</body>
+</html>

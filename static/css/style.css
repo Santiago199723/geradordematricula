@@ -1,0 +1,120 @@
+/* Definições Globais de Cores (Paleta Dark Tech) */
+:root {
+    --bg-dark: #050509;
+    --bg-panel: #0a0c16;
+    --text-primary: #ffffff;
+    --text-secondary: #8b9bb4;
+    --accent-blue: #00e5ff; /* Azul elétrico */
+    --accent-glow: rgba(0, 229, 255, 0.3);
+    --border-color: #1a1f35;
+    --success-green: #00ff88;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+
+body {
+    background-color: var(--bg-dark);
+    /* Grid tech de fundo */
+    background-image: 
+        linear-gradient(rgba(0, 229, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 229, 255, 0.03) 1px, transparent 1px);
+    background-size: 30px 30px;
+    color: var(--text-primary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.main-container {
+    background-color: rgba(10, 12, 22, 0.95);
+    backdrop-filter: blur(10px);
+    width: 100%;
+    max-width: 650px;
+    padding: 40px;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    /* Sombra mais imponente e glow neon sutil */
+    box-shadow: 0 0 40px rgba(0, 229, 255, 0.08), inset 0 0 20px rgba(0,0,0,0.8);
+}
+
+header {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.logo-space {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--accent-blue);
+    text-shadow: 0 0 10px var(--accent-glow);
+    margin-bottom: 10px;
+}
+
+header h1 { font-size: 1.5rem; margin-bottom: 5px; }
+header p { color: var(--text-secondary); font-size: 0.9rem; }
+
+.dark-form { display: flex; flex-direction: column; gap: 20px; }
+
+.input-group { display: flex; flex-direction: column; gap: 8px; }
+
+.input-row { display: flex; gap: 20px; width: 100%; }
+.input-group.half { width: 50%; }
+.universidad-row { display: flex; gap: 20px; width: 100%; }
+
+label { color: var(--text-secondary); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; }
+
+input, select {
+    background-color: #0d111d;
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    padding: 12px 15px;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: var(--accent-blue);
+    box-shadow: 0 0 10px var(--accent-glow);
+}
+
+.hidden { display: none !important; }
+
+/* Botão Gerar com Efeito Glow */
+.btn-gerar {
+    position: relative;
+    background-color: var(--accent-blue);
+    color: #000;
+    border: none;
+    padding: 15px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    margin-top: 20px;
+}
+
+.btn-gerar:hover {
+    background-color: #fff;
+    transform: translateY(-2px);
+}
+
+.btn-glow {
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.btn-gerar:hover .btn-glow {
+    opacity: 0.2;
+}
