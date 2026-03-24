@@ -118,3 +118,47 @@ input:focus, select:focus {
 .btn-gerar:hover .btn-glow {
     opacity: 0.2;
 }
+
+
+/* =========================================
+   RESPONSIVIDADE (MOBILE E TABLETS)
+   ========================================= */
+@media (max-width: 768px) {
+    /* Reduz as margens internas para aproveitar a tela do celular */
+    .main-container {
+        padding: 30px 20px;
+        width: 100%;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    /* Quebra as colunas lado a lado para ficarem uma embaixo da outra */
+    .input-row, .universidad-row {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    /* Força os campos que eram 50% a ocuparem 100% da largura no mobile */
+    .input-group.half, .half-group {
+        width: 100% !important;
+    }
+
+    /* Ajusta o tamanho dos textos do cabeçalho para não vazar */
+    .logo-space {
+        font-size: 1.6rem;
+    }
+
+    header h1 { 
+        font-size: 1.3rem; 
+    }
+
+    header p { 
+        font-size: 0.8rem; 
+    }
+    
+    /* Ajusta o botão para telas menores */
+    .btn-gerar {
+        padding: 12px;
+        font-size: 0.95rem;
+    }
+}
