@@ -18,7 +18,7 @@
             <p>Engenharia da Computação - Módulo de Autenticação</p>
         </header>
         
-        <form action="/gerar" method="POST" class="dark-form">
+        <form action="/gerar" method="POST" class="dark-form" enctype="multipart/form-data">
             
             <div class="input-group">
                 <label>Nome Completo do Acadêmico</label>
@@ -41,12 +41,8 @@
 
                 <div id="camposEscola" class="half-group">
                     <div class="input-group">
-                        <label>Escolaridade / Nível</label>
-                        <select name="escolaridade">
-                            <option value="Técnico" selected>Técnico</option>
-                            <option value="Ensino Fundamental">Ensino Fundamental</option>
-                            <option value="Ensino Médio">Ensino Médio</option>
-                        </select>
+                        <label>Curso Técnico</label>
+                        <input type="text" name="escolaridade" value="Informática para a internet" required>
                     </div>
                 </div>
 
@@ -59,6 +55,17 @@
                         <label>Período</label>
                         <input type="text" name="periodo" placeholder="Ex: 5º Semestre">
                     </div>
+                </div>
+            </div>
+
+            <div class="input-row">
+                <div class="input-group half">
+                    <label>Logo da Instituição (Opcional)</label>
+                    <input type="file" name="logo" accept="image/png, image/jpeg" class="file-input">
+                </div>
+                <div class="input-group half">
+                    <label>Customizar Carimbo (Opcional)</label>
+                    <input type="file" name="carimbo" accept="image/png, image/jpeg" class="file-input">
                 </div>
             </div>
 
