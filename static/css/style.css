@@ -61,7 +61,9 @@ header p { color: var(--text-secondary); font-size: 0.9rem; }
 
 .input-row { display: flex; gap: 20px; width: 100%; }
 .input-group.half { width: 50%; }
-.universidad-row { display: flex; gap: 20px; width: 100%; }
+.half-group { width: 50%; }
+/* A mágica aqui: reduzimos de 100% para 50% e diminuímos o gap (espaço entre eles) para 10px */
+.universidad-row { display: flex; gap: 10px; width: 50%; }
 
 label { color: var(--text-secondary); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; }
 
@@ -119,46 +121,39 @@ input:focus, select:focus {
     opacity: 0.2;
 }
 
+/* Estilização dos botões de Upload de Arquivo */
+.file-input {
+    padding: 8px !important;
+    background-color: #080a12;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    cursor: pointer;
+}
+.file-input::file-selector-button {
+    background-color: var(--border-color);
+    color: var(--accent-blue);
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    margin-right: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+.file-input::file-selector-button:hover {
+    background-color: var(--accent-blue);
+    color: #000;
+}
 
 /* =========================================
    RESPONSIVIDADE (MOBILE E TABLETS)
    ========================================= */
 @media (max-width: 768px) {
-    /* Reduz as margens internas para aproveitar a tela do celular */
-    .main-container {
-        padding: 30px 20px;
-        width: 100%;
-        margin-top: 10px;
-        margin-bottom: 10px;
-    }
-
-    /* Quebra as colunas lado a lado para ficarem uma embaixo da outra */
-    .input-row, .universidad-row {
-        flex-direction: column;
-        gap: 15px;
-    }
-
-    /* Força os campos que eram 50% a ocuparem 100% da largura no mobile */
-    .input-group.half, .half-group {
-        width: 100% !important;
-    }
-
-    /* Ajusta o tamanho dos textos do cabeçalho para não vazar */
-    .logo-space {
-        font-size: 1.6rem;
-    }
-
-    header h1 { 
-        font-size: 1.3rem; 
-    }
-
-    header p { 
-        font-size: 0.8rem; 
-    }
-    
-    /* Ajusta o botão para telas menores */
-    .btn-gerar {
-        padding: 12px;
-        font-size: 0.95rem;
-    }
+    .main-container { padding: 30px 20px; width: 100%; }
+    .input-row, .universidad-row { flex-direction: column; gap: 15px; }
+    /* Incluímos o .universidad-row aqui para forçar ele a pular para a linha de baixo no celular */
+    .input-group.half, .half-group, .universidad-row { width: 100% !important; }
+    .logo-space { font-size: 1.6rem; }
+    header h1 { font-size: 1.3rem; }
+    .btn-gerar { padding: 12px; font-size: 0.95rem; }
 }
